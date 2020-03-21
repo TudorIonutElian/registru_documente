@@ -20,10 +20,11 @@ body{
     box-sizing: border-box;
     width: 100vw;
     height: 100vh;
-    background: #3498db;
+    background: #ffffff;
     opacity: 1;
     background-size: cover;
     position: relative;
+    font-family: Roboto-1;
 }
 
 a{
@@ -71,6 +72,7 @@ li{
     font-family: Roboto-1;
     border-radius: 2px;
     margin: 0 5px;
+    position: relative;
 }
 
 #top-content-menu ul li.active{
@@ -90,6 +92,7 @@ li{
 #top-content-menu ul li.active a:hover{
     color: #fff;
 }
+
 
 
 #main-content,
@@ -184,24 +187,6 @@ li{
    justify-content: center;
    align-items: center;
 }
-.box-elements-button button{
-    margin-top: 10px;
-    padding: 10px;
-    flex-grow: 1;
-    width: 100%;
-    outline: 0;
-    border: 0;
-    color: #fff;
-    background-color: #34495e;
-    text-transform: uppercase;
-    font-family: Roboto-1;
-    cursor: pointer;
-}
-.box-elements-button button:hover{
-    background-color: transparent;
-    border: 1px solid #34495e;
-    color: #34495e;
-}
 
 
 
@@ -289,6 +274,7 @@ li{
     background-color: #2ecc71;
     color: #fff;
     cursor: pointer;
+    font-weight: bold;
 }
 #tabel-numere-n thead tr{
     background-color: transparent;
@@ -297,6 +283,12 @@ li{
     text-transform: uppercase;
     padding-bottom: 10px;
 }
+
+
+
+
+
+
 #tabel-numere-n tbody tr{
     margin-bottom: 5px;
 }
@@ -309,7 +301,7 @@ li{
     text-align: center
 }
 .numar_crt{
-    width: 5%;
+    width: 3%;
 }
 .numar{
     width: 5%;
@@ -318,16 +310,22 @@ li{
     width: 5%;
 }
 .numar_inregistrare{
-    width: 10%;
+    width: 5%;
 }
 .data_inregistrare{
-    width: 15%;
+    width: 5%;
 }
 .continut{
     width: 15%;
 }
 .lucrator{
-    width: 15%;
+    width: 10%;
+}
+.file{
+    width: 2.5%;
+}
+.exemplare{
+    width: 2.5%;
 }
 .destinatie{
     width: 10%;
@@ -344,4 +342,16 @@ li{
     background-color: #fff;
     border: 2px solid #2ecc71;
     border-radius: 4px;
+}
+
+
+
+.input-group-text{
+    min-width: 100px;
+    border: none;
+}
+
+a{
+    text-decoration: none;
+    color: #fff;
 }

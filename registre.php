@@ -1,56 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registru Documente</title>
-    <link rel="stylesheet" href="design/style.css">
-</head>
-<body>
-    <div id="top-content">
-        <div id="top-content-menu">
-            <h2>
-                <a href="index.html">
-                    <img src="./img/stema.png" alt="">
-                </a>
-            </h2>
-            <ul>
-                <li class="active"><a href="registre.html">Registru</a></li>
-                <li><a href="#">Despre</a></li>
-                <li><a href="#">Statistici</a></li>
-                <li><a href="#">Versiuni</a></li>
-                <li><a href="#">Contact</a></li>
-            </ul>
-        </div>
-    </div>
+<?php require './includes/header.php' ;?>
+<?php require './includes/navbar.php' ;?>
     <div id="main-content-registru">
         <div id="registru-box">
             <div class="box-registru registru-n">
-                <a href="documente.html">
+                <a href="documente.php">
                     <div><img src="img/n.png" alt=""></div>
                     <div>Registru Neclasificate</div>
                 </a>
             </div>
             <div class="box-registru registru-ssv">
-                <a href="documente.html">
+                <a href="documente.php">
                     <div><img src="img/ssv.png" alt=""></div>
                     <div>Registru SSv</div>
                 </a>
             </div>
             <div class="box-registru registru-s">
-                <a href="documente.html">
+                <a href="documente.php">
                     <div><img src="img/s.png" alt=""></div>
                     <div>Registru S</div>
                 </a>
             </div>
             <div class="box-registru registru-ss">
-                <a href="documente.html">
+                <a href="documente.php">
                     <div><img src="img/ss.png" alt=""></div>
                     <div>Registru SS</div>
                 </a>
             </div>
             <div class="box-registru registru-petitii">
-                <a href="documente.html">
+                <a href="documente.php">
                     <div><img src="img/p.png" alt=""></div>
                     <div>Registru Petitii</div>
                 </a>
