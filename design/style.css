@@ -1,14 +1,14 @@
 @font-face {
     font-family: Roboto-1;
-    src: url(../fonts/lato/Lato-Bold.ttf);
+    src: url(./fonts/lato/Lato-Bold.ttf);
 }
 @font-face {
     font-family: Roboto-2;
-    src: url(../fonts/lato/Lato-Black.ttf);
+    src: url(./fonts/lato/Lato-Black.ttf);
 }
 @font-face {
     font-family: Roboto-3;
-    src: url(../fonts/lato/Lato-Light.ttf);
+    src: url(./fonts/lato/Lato-Light.ttf);
 }
 
 * {
@@ -18,17 +18,21 @@ body{
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    width: 100vw;
     height: 100vh;
-    background: #fff;
+    background: 
+        linear-gradient(to bottom right, rgba(52, 161, 1, 0.671), rgba(217, 128, 250, 0.795)),
+        url('./img/mai.jpg') no-repeat;
+    background-size: cover;
     opacity: 1;
     background-size: cover;
     position: relative;
     font-family: Roboto-1;
+    line-height: 1;
 }
 
 a{
     text-decoration: none;
+    color: #fff;
 }
 li{
     list-style: none;
@@ -36,58 +40,12 @@ li{
 
 #top-content{
     width: 100%;
-    height: 8%;
+    height: 8vh;
     display: flex;
     flex-direction: column;
     z-index: 100;
-
-}
-#top-content-menu{
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: row;
-    background-color: #34495e;
-
-}
-#top-content-menu h2{
-    flex-grow: 1;
-    text-align: center;
-    z-index: 100;
-}
-#top-content-menu h2 img{
-    width: 70px;
-}
-#top-content-menu ul{
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    flex-grow: 4;
-}
-#top-content-menu ul li{
-    padding: 10px;
-    text-transform: uppercase;
-    font-family: Roboto-1;
-    border-radius: 2px;
-    margin: 0 5px;
     position: relative;
 }
-
-#top-content-menu ul li.active{
-    background-color: #2ecc71;
-}
-
-#top-content-menu ul li.active a{
-    color: #000;
-}
-
-
-#top-content-menu ul li.active a:hover{
-    color: #fff;
-}
-
-
 
 #main-content,
 #main-content-registru,
@@ -106,8 +64,10 @@ li{
 /* --- MAIN CONTENT ---*/
 
 #login-box,
-#registru-box{
+#registru-box,
+#register-box{
     background-color: #2ecc71;
+    background: linear-gradient(-45deg, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
     position: absolute;
     width: 45%;
     padding: 30px;
@@ -122,6 +82,7 @@ li{
     justify-content: center;
     align-items: center;
 }
+
 
 #login-box:hover{
     transition: 0.6s;
@@ -213,6 +174,260 @@ h1 span{
     text-transform: lowercase;
 }
 
-table tbody tr:hover{
-    background-color: #2ecc71;
+
+/* --- Design SESIZARI*/
+
+#sesizari-box{
+    max-width: 100%;
+    min-height: 92vh;
+}
+#sesizari-box .container-fluid {
+    padding: 0;
+    width: 100%;
+    height: 100%;
+}
+#sesizari-box .container-fluid .row {
+    margin: 0;
+    padding: 0;
+    width: inherit;
+    height: inherit;
+}
+#sesizari-box .container-fluid .row {
+    width: inherit;
+    height: inherit;
+}
+
+
+
+.admin-logo{
+    width: 70px;
+}
+.card-body{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.card-body div{
+    width: 50%;
+    align-self: center;
+}
+.card-body div{
+    font-size: 50px;
+}
+
+.container-fluid .row .form-flex-row{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.container-fluid .row .form-flex-row label{
+    width: 70%;
+    font-size: 14px;
+}
+
+
+textarea{
+    resize: none;
+}
+input[type=date]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    display: none;
+}
+
+.form-border {
+    border-bottom: 1px solid #ffeaa7;
+    padding-bottom: 10px;
+}
+
+.fieldset{
+    padding: 30px;
+    min-height: 550px;
+    border: 2px solid #28a745;
+}
+legend {
+    background: linear-gradient(-45deg, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+    padding: 1%;
+    border-radius: 10px;
+    color: #fff;
+}
+.fieldset .rand{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.fieldset .rand label {
+    min-width: 55%;
+}
+
+.hide-div{
+    visibility: hidden;
+}
+
+.row-stats{
+    width: 100%;
+    padding: 5px;
+    background-color:  #3498db;
+    color: #fff;
+    text-align: center;
+    text-transform: uppercase;
+}
+div.statistici-serviciu{
+    padding-left: 30px;
+}
+a.dropdown-menu{
+    text-decoration: none;
+    color:  #3498db !important;
+}
+@keyframes pulse {
+    1% {
+        visibility: visible;
+        opacity: 0.1;
+    }
+    20% {
+        opacity: 0.2;
+    }
+    30% {
+        opacity: 0.9;
+    }
+    70% {
+        opacity: 1;
+    }
+    95% {
+        opacity: 0.4;
+    }
+    100% {
+        opacity: 0.2;
+        visibility: hidden;
+    }
+  }
+  @keyframes inregistrare-hover{
+    10% {
+        opacity: 0.2;
+    }
+    100% {
+        opacity: 1;
+    }
+  }
+  
+#adaugareDocument{
+    position: relative;
+}
+
+#documentInregistrat{
+    position: absolute;
+    background-color: #28a745;
+    border: 2px solid #0f9647;
+    color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    bottom: 0px;
+    right: 0px;
+    left: 0px;
+    margin-top: 30px;
+    visibility: hidden;
+    animation: pulse 3s;
+}
+.col-3 img{
+    width: 100%;
+    height: 60%;
+}
+
+.col-flexbox{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.info{
+    padding-left: 10%;
+}
+.info-line{
+    padding: 2%;
+    background-color: #28a745;
+    color: #fff;
+    font-family: Roboto-1;
+    border-radius: 5px;
+}
+#astazi span{
+    background-color: #fff;
+    padding: 5px;
+    color: #000;
+    border-radius: 5px;
+}
+
+.label-invalid{
+    color: red;
+}
+.btn-theme,
+.bg-theme{
+    background: linear-gradient(-45deg, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+    color: #fff;
+}
+.btn-theme:hover{
+    color: #fff;
+    background: #1e5799;
+    animation: inregistrare-hover 1s;
+}
+
+#container-top-bottom {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    height: 92;
+    width: 100%;
+    margin-right: auto;
+    margin-left: auto;
+}
+.jumbotron.jumbotron-fluid{
+    background: linear-gradient(-45deg, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%);
+    margin-bottom: 0;
+}
+
+#form-serviciu div.form-group{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+}
+#form-serviciu div.form-group label{
+    margin-bottom: 5px;
+    color: #fff;
+}
+.label-hide{
+    visibility: hidden;
+}
+
+#container-serviciu{
+    margin-top: 8vh;
+}
+footer {
+    position: relative;
+    width: 100%;
+    bottom: 0;
+    right: 0;
+}
+
+
+.btn-theme-succes{
+    background: linear-gradient(to bottom right, #1abc9c, #1abc9c);
+    color: #fff;
+}
+.btn-theme-danger{
+    background: linear-gradient(to bottom right, #e84118, #e84118);
+    color: #fff;
+}
+
+table.table {
+    font-size: 14px;
+    text-align: center;
+}
+
+.rand-invalid{
+    background-color: #e84118;
+    color: #fff;
 }
