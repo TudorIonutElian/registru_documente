@@ -85,4 +85,116 @@ class Functions{
             return $result['denumire_emitent'];
         }
     }
+
+    // Verificare numar, daca este 0 afiseaza in registru F.N.
+    public static function getNumar($numar){
+        if($numar == 0){
+            return "F.N.";
+        }else{
+            return $numar;
+        }
+    }
+
+    public static function getLucratorType($cod_serviciu){
+        switch($cod_serviciu){
+            case '3':
+                return "Serviciul Personal si Coordonare Structuri de Resurse Umane";
+            break;
+            case '4':
+                return "Serviciul Gestioune Personal";
+            break;
+            case '5':
+                return "Serviciul Organizare";
+            break;
+            case '6':
+                return "Serviciul Formare Initiala si Continua";
+            break;
+            case '7':
+                return "Biroul Inspectia Muncii";
+            break;
+        }
+    }
+
+    public static function getStare($cod_stare){
+        switch($cod_stare){
+            case '1':
+                return "Utilizator Activ";
+            break;
+            case '2':
+                return "Utilizator in rezerva";
+            break;
+            case '3':
+                return "Utilizator in retragere";
+            break;
+            case '4':
+                return "Utilizator mutat";
+            break;
+        }
+    }
+    public static function getNrDocumente($documente){
+        switch($documente){
+            case 0:
+                return "Utilizatorul nu are alocate documente";
+            break;
+            default:
+                return $documente;
+        break; 
+        }
+    }
+
+    // Afisare numele lucratorului in pagina de documente
+    public static function getLucratorNume($id){
+        $baza = new Database();
+        $conexiune = $baza->conectare();
+        
+        $sql = "SELECT lucrator from rd_lucratori WHERE id = $id";
+        $result = mysqli_query($conexiune, $sql);
+        $nume_lucrator = mysqli_fetch_array($result, MYSQLI_ASSOC);
+
+        return $nume_lucrator['lucrator'];
+    }
+
+    public static function getDataIesire($dataIesire){
+        if($dataIesire == "0000-00-00"){
+            return "";
+        }else{
+            return $dataIesire;
+        }
+    }
+    public static function getIesireTransmitere($iesireTransmitere){
+        if($iesireTransmitere == 0){
+            return "";
+        }
+    }
+
+    public static function getIesireClasare($iesireClasare){
+        if($iesireClasare == "0"){
+            return "";
+        }
+    }
+
+    // Verificare daca registrul are numere inregistrate
+    public static function getNumarCurent($registru, $rol){
+        // COnectare la baza de date
+        $database = new Database();
+        $conexiune = $database->conectare();
+
+        $sql = "SELECT * FROM $registru";
+
+        if($result = mysqli_query($conexiune, $sql)){
+            if(mysqli_num_rows($result) > 0){
+                $sqlGetNumarUrmator = "SELECT MAX(numar_curent_corespondenta) FROM $registru";
+                if($result = mysqli_query($conexiune, $sqlGetNumarUrmator)){
+                    $NumarUrmator = mysqli_fetch_assoc($result);
+                    return (int)$NumarUrmator['MAX(numar_curent_corespondenta)'] + 1;
+                }
+            }elseif(mysqli_num_rows($result) == 0 || mysqli_num_rows($result) == NULL){
+                $sqlGetNumarUrmatorBaza = "SELECT start_number FROM rd_start_numbers WHERE cod_registru = $rol";
+                if($result = mysqli_query($conexiune, $sqlGetNumarUrmatorBaza)){
+                    $NumarUrmator = mysqli_fetch_assoc($result);
+                    return (int)$NumarUrmator['start_number'];
+                };
+            }
+        }
+    }
 }

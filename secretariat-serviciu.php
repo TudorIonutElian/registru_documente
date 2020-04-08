@@ -1,13 +1,21 @@
-<?php require './includes/header.php' ;?>
-<?php require './includes/navbar.php' ;?>
-
-
+<?php 
+    require './includes/header.php';
+    require './includes/navbar.php';
+    require './includes/classes/SecretarServiciu.php';
+    
+    if(isset($_SESSION['rol'])){
+        $rol                = $_SESSION['rol'];
+        $registru           = Functions::getRegistru($rol);
+        $numar_documente    = SecretarServiciu::getCountAlocare($registru);
+        $numar_urmator      = Functions::getNumarCurent($registru, $rol);
+    }
+?>
 
     <div id="container-top-bottom">
             <div class="container-fluid" id="container-serviciu">
                 <div class="row">
                     <div class="col-12">
-                    <form action="./includes/inregistreaza.php" method="POST" class="py-2">
+                    <form id="form_add_document" action="./includes/inregistreaza.php" method="POST" class="py-2">
                         <div class="container-fluid">
                             <div class="row">
                                 <div class="col-4">
@@ -15,7 +23,7 @@
                                         <legend> # - INTRARE:</legend>
                                         <div class="rand mt-2">
                                             <label id="label" for="numarCorespondentaIntrata" class="">Numarul curent al corespondentei</label>
-                                            <input name="serviciu-intrare-numar-curent" type="text" class="form-control mb-1 text-center" id="numarCorespondentaIntrata" placeholder="F.N.">
+                                            <input name="serviciu-intrare-numar-curent" type="text" class="form-control mb-1 text-center" id="numarCorespondentaIntrata" value="<?php echo $numar_urmator; ?>">
                                         </div>
                                         <div class="rand mt-2">
                                             <label id="label-data" for="dataIntrarii" class="">Data intrarii (ANUL 2020)</label>
@@ -23,11 +31,12 @@
                                         </div>
                                         <div class="rand mt-2">
                                             <label id="label-numar" for="numarCorespondentaIntrata" class="">Numarul corespondentei intrate</label>
-                                            <input name="serviciu-intrare-numar" type="text" class="form-control mb-1 text-center" id="numarCorespondentaIntrata" placeholder="F.N.">
+                                            <input name="serviciu-intrare-numar" type="number" class="form-control mb-1 text-center" id="numarCorespondentaIntrata" placeholder="F.N.">
                                         </div>
                                         <div class="rand mt-2">
                                             <label for="codEmitent" class="">De la cine provine corespondenta</label>
                                             <select name="serviciu-intrare-cod-emitent" class="form-control" id="codEmitent">
+                                                <option value="0">Rezervare numar</option>
                                                 <?php getAllEmitent();?>
                                             </select>
                                         </div>
@@ -39,13 +48,9 @@
                                         <div class="rand mt-2">
                                             <label for="codRepartizareStructura" class="">Cui s-a repartizat lucrarea spre executare (serviciul, biroul)</label>
                                                 <select name="serviciu-intrare-repartizare-lucrator" class="form-control" id="codRepartizareStructura">
-                                                    <option value="0">Niciun serviciu selectat</option>    
-                                                    <option value="1">S1 - SPCSRU</option>
-                                                    <option value="2">S2 - SGP</option>
-                                                    <option value="3">S3 - SO</option>
-                                                    <option value="4">S4 - SFIC</option>
-                                                    <option value="5">B1 - BIM</option>
-                                            </select>
+                                                    <option value="0">Nealocat</option>
+                                                    <?php SecretarServiciu::getLucratoriServiciu($rol); ?>
+                                                </select>
                                         </div>    
                                     </fieldset>
                                 </div>
@@ -62,22 +67,44 @@
                                         </div>  
 
                                         <div class="rand mt-2">
-                                            <label for="codEmitent" class="">Catre cine s-a trimis corespondenta</label>
+                                            <label for="codEmitent" class="">Destinatar 1</label>
                                             <select name="serviciu-iesire-emitent" class="form-control" id="codEmitent">
+                                                <option value="0">Nu a fost transmis</option>
                                                 <?php getAllEmitent();?>
                                             </select>
                                         </div>
+
+                                        <div class="rand mt-2">
+                                            <label for="codEmitent" class="">Destinatar 2</label>
+                                            <select name="serviciu-iesire-emitent" class="form-control" id="codEmitent">
+                                                <option value="0">Nu a fost transmis</option>
+                                                <?php getAllEmitent();?>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="rand mt-2">
+                                            <label for="codEmitent" class="">Destinatar 3</label>
+                                            <select name="serviciu-iesire-emitent" class="form-control" id="codEmitent">
+                                                <option value="0">Nu a fost transmis</option>
+                                                <?php getAllEmitent();?>
+                                            </select>
+                                        </div>
+
+
                                         <div class="rand mt-2">
                                             <label for="codEmitent" class="">Unde s-a clasat lucrarea?</label>
                                             <select name="serviciu-iesire-clasare" class="form-control" id="codEmitent">
+                                                <option value="0">Nu a fost clasat</option>
                                                 <?php getAllEmitent();?>
                                             </select>
                                         </div>  
                                     </fieldset>
                                 </div>
                                 <div class="col-4">
-                                    <button id="validareFormular" type="submit" class="btn btn-lg btn-theme btn-block mt-1">Inregistreaza documentul</button>
-                                    <a href="cauta.php" type="submit" class="btn btn-lg btn-outline-dark btn-block mt-1">Vizualizare Documente</a>
+                                    <button id="validare_formular" type="submit" class="btn btn-lg btn-theme btn-block mt-1">Inregistreaza documentul</button>
+                                    <a href="documente.php" type="submit" class="btn btn-lg btn-outline-dark btn-block mt-1">Vizualizare Documente</a>
+                                    <a href="alocare.php" type="submit" class="btn btn-lg btn-outline-dark btn-block mt-1">Aveti (<?php echo $numar_documente;?>) document(e) de repartizat</a>
                                 </div>
                             </div>
                         </div>
@@ -85,6 +112,8 @@
                 </div>
                 
             </div>
+            <div id="demo"></div>
     </div>
+
 
 <?php require './includes/footer.php'; ?>

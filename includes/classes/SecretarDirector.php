@@ -22,6 +22,31 @@
             }
             return $serviciu;
         }
+
+        public static function getNumarCurent($registru, $rol){
+            // COnectare la baza de date
+            $database = new Database();
+            $conexiune = $database->conectare();
+    
+            $sql = "SELECT * FROM $registru";
+    
+            if($result = mysqli_query($conexiune, $sql)){
+                if(mysqli_num_rows($result) > 0){
+                    $sqlGetNumarUrmator = "SELECT MAX(numar_curent_corespondenta) FROM $registru";
+                    if($result = mysqli_query($conexiune, $sqlGetNumarUrmator)){
+                        $NumarUrmator = mysqli_fetch_assoc($result);
+                        return (int)$NumarUrmator['MAX(numar_curent_corespondenta)'] + 1;
+                    }
+                }elseif(mysqli_num_rows($result) == 0 || mysqli_num_rows($result) == NULL){
+                    $sqlGetNumarUrmatorBaza = "SELECT start_number FROM rd_start_numbers WHERE cod_registru = $rol";
+                    if($result = mysqli_query($conexiune, $sqlGetNumarUrmatorBaza)){
+                        $NumarUrmator = mysqli_fetch_assoc($result);
+                        return (int)$NumarUrmator['start_number'];
+                    };
+                }
+            }
+        }
+
         public static function alocareDocument($dataIntrarii, $numarCorespondentaIntrata, $codEmitent, $codRepartizareStructura){
             $database = new Database();
             $conexiune = $database->conectare();
@@ -41,14 +66,19 @@
                 die(mysqli_error($conexiune));
             };
 
-            //Identificare serviciu
+            //Identificare serviciu si urmatorul numar
             $serviciu = self::getServiciu($codRepartizareStructura);
-            $sqlServiciu = "INSERT INTO " . $serviciu ." (id, data_intrarii, numar_corespondenta_intrata, cod_emitent) 
+            $numar = self::getNumarCurent($serviciu, ((int)$codRepartizareStructura+2));
+
+            $sqlServiciu = "INSERT INTO " . $serviciu ." (id, numar_curent_corespondenta, data_intrarii, numar_corespondenta_intrata, cod_emitent, cod_lucrator) 
             VALUES (
-                        '$id_document', 
+                        '$id_document',
+                        '$numar', 
                         '$dataIntrarii', 
                         '$numarCorespondentaIntrata', 
-                        '$codEmitent')";
+                        '$codEmitent', 
+                        0
+                    )";
             $resultServiciu = mysqli_query($conexiune, $sqlServiciu);
             if(!$resultServiciu){
                 die(mysqli_error($conexiune));

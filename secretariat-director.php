@@ -57,22 +57,6 @@
                                 <div class="rand mt-2">
                                     <label for="codEmitent" class="text-right pr-4">Alocare Serviciul 1 - <?php echo $astazi; ?></label>
                                     <input type="text" class="form-control mb-1 text-center" placeholder="<?php echo $documente_s1;?> documente" disabled>
-                                </div> 
-                                <div class="rand mt-2">
-                                    <label for="codEmitent" class="text-right pr-4">Alocare Serviciul 2 - <?php echo $astazi; ?></label>
-                                    <input type="text" class="form-control mb-1 text-center" placeholder="<?php echo $documente_s2;?> documente" disabled>
-                                </div> 
-                                <div class="rand mt-2">
-                                    <label for="codEmitent" class="text-right pr-4">Alocare Serviciul 3 - <?php echo $astazi; ?></label>
-                                    <input type="text" class="form-control mb-1 text-center" placeholder="<?php echo $documente_s3;?> documente" disabled>
-                                </div> 
-                                <div class="rand mt-2">
-                                    <label for="codEmitent" class="text-right pr-4">Alocare Serviciul 4 - <?php echo $astazi; ?></label>
-                                    <input type="text" class="form-control mb-1 text-center" placeholder="<?php echo $documente_s4;?> documente" disabled>
-                                </div>  
-                                <div class="rand mt-2">
-                                    <label for="codEmitent" class="text-right pr-4">Alocare Biroul Inspectia Muncii - <?php echo $astazi; ?></label>
-                                    <input type="text" class="form-control mb-1 text-center" placeholder="<?php echo $documente_bim;?> documente" disabled>
                                 </div>                         
                             </fieldset>
                             <button id="validareFormular" type="submit" class="btn btn-theme btn-block mt-1">Inregistreaza documentul</button>
@@ -107,8 +91,7 @@
         let numarCorespondentaIntrata = document.getElementById("numarCorespondentaIntrata");
 
         if(optiuneServiciu == 0){
-            e.preventDefault();   
-            alert('Am oprit formularul');
+            e.preventDefault(); 
             rand_drop_down.classList.add('rand-invalid');
         }else{
             form.submit();

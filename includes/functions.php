@@ -3,6 +3,7 @@
     require 'classes/Database.php';
     require 'classes/Id.php';
 
+
 function getNextNumber($registru){
     $dataBase = new Database();
     $conexiune = $dataBase->conectare();
@@ -29,30 +30,18 @@ function getNextNumber($registru){
 }
 
 
-function registerUser($username, $email, $parola){
-    $dataBase = new Database();
-    $conexiune = $dataBase->conectare();
-
-    $sql = "INSERT INTO rd_utilizatori (user, email, parola, rol, stare) 
-            VALUES ('$username', '$email', '$parola', 2, 0)";
-    $result = mysqli_query($conexiune, $sql);
-    if($result){
-        header("Location: index.php?status=registered");
-    }
-}
-
 
 function loginUser($username, $parola){
     $dataBase = new Database();
     $conexiune = $dataBase->conectare();
 
-    $sql= "SELECT * FROM rd_utilizatori WHERE user = '" . $username ."'";
+    $sql= "SELECT * FROM rd_utilizatori WHERE user = '$username'";
     $result = mysqli_query($conexiune, $sql);
     $user_identificat = mysqli_fetch_assoc($result);
     $user_session = $user_identificat['user'];
     $sql= "SELECT * FROM rd_utilizatori WHERE user = '" . $username ."'";
     $result = mysqli_query($conexiune, $sql);
-    $user_identificat = mysqli_fetch_assoc($result);
+    $user_identificat = mysqli_fetch_assoc(mysqli_query($conexiune, $sql));
 
     if($user_identificat == 0){
         header("Location: index.php?eroareUsername=false");
@@ -77,7 +66,7 @@ function loginUser($username, $parola){
                 header("Location: ../secretariat-lucrator.php");
             }
         }elseif($parola !== $user_identificat['parola']){
-            header("Location: ../index.php?eroareParola=true");
+            header("Location: ./index.php?eroareParola=true");
         }       
     }
 }
@@ -89,14 +78,29 @@ function isLogged(){
     return false;
 }
 
+function getCountAlocare($registru){
+    // COnectare la baza de date
+    $database = new Database();
+    $conexiune = $database->conectare();
+
+    $sql = "SELECT * FROM $registru WHERE cod_lucrator = 0";
+
+    if($result = mysqli_query($conexiune, $sql)){
+        if(!mysqli_num_rows($result)){
+            return '0';
+        }
+        return mysqli_num_rows($result);
+    }
+}
+
 // Afisare buton logout
 function showLogoutButton(){
- 
+    
     if(isset($_SESSION['utilizator'])){
         $utilizator = '<a class="dropdown-item" href="profil.php"><img class="p-2" src="./design/img/profile.png">'. $_SESSION['utilizator'] .'</a>';
     }
     if(isset($_SESSION['rol'])){
-        $rol = Functions::getRol($_SESSION['rol']);
+        $rol                = Functions::getRol($_SESSION['rol']); //identificare structura
         $admin = '<a class="dropdown-item" href="./includes/profil.php"><img class="p-2" src="./design/img/profile.png">' . $rol .'</a>';
     }
 
@@ -111,7 +115,22 @@ function showLogoutButton(){
 
 
     if(isLogged()){
+        $registru           = Functions::getRegistru($_SESSION['rol']);
+        $numar_documente    = getCountAlocare($registru);
+
+        $classAlocare = 'alocare-success';
+
+        if($numar_documente > 0){
+            $classAlocare = "alocare-warning";
+        }
+
         echo '
+            <li class="nav-item active">
+                <a class="nav-link ' .$classAlocare . '" href="alocare.php">Alocare (' .$numar_documente. ')</a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="secretariat-serviciu.php">Inregistrare</a>
+            </li>
             <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 Contul meu
@@ -120,10 +139,22 @@ function showLogoutButton(){
                     ' . $admin .'
                     <div class="dropdown-divider"></div>
                     <a class="dropdown-item" href="#"><img class="p-2" src="./design/img/sesizari.png">Sesizari</a>
-                    <a class="dropdown-item" href="#"><img class="p-2" src="./design/img/mesaje.png">Notificari (0) </a>
+                    <a class="dropdown-item" href="alocare.php"><img class="p-2" src="./design/img/mesaje.png">Alocare (' .$numar_documente .') </a>
                     <a class="dropdown-item" href="logout.php"><img class="p-2" src="./design/img/logout.png">Logout</a>
                 </div>
             </li>
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Mentenanta
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="realocare.php"><img class="p-2" src="./design/img/sesizari.png">Realocare numar</a>
+                    <a class="dropdown-item" href="#"><img class="p-2" src="./design/img/sesizari.png">Schimba lucrator</a>
+                    <a class="dropdown-item" href="#"><img class="p-2" src="./design/img/sesizari.png">Schimba destinatar</a>
+                    <a class="dropdown-item" href="#"><img class="p-2" src="./design/img/sesizari.png">Adauga emitent</a>
+                </div>
+            </li>
+            <li class="nav-item"><a class="btn btn-outline-info mx-2" href="registru.php" target="_blank">Printeaza Registru</a></li>
         ';
     }
 }
@@ -189,6 +220,5 @@ function getAllEmitent(){
 
     while($emitenti = mysqli_fetch_array($result, MYSQLI_ASSOC)){ 
         echo "<option value=" .$emitenti['cod_emitent']. "> ". $emitenti['denumire_emitent']. "</option>";
-        var_dump($emitenti);
     }
 }
