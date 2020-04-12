@@ -16,19 +16,21 @@
                         <form action="./includes/login.php" method="POST"><!-- A se modifica unde se transmit datele-->
                         <div class="input-group mb-1">
                             <div class="input-group-prepend text-right">
-                            <span class="bg-primary text-white input-group-text">Username</span>
+                            <span id="userInfo" class="bg-primary text-white input-group-text">Username</span>
                             </div>
-                            <input type="text" aria-label="Username" class="form-control text-center" name="username">
+                            <input type="text" aria-label="Username" class="form-control text-center" name="username" id="username">
+                        </div> 
+                        <div class="input-group mb-1">
+                           <div id="eroareUtilizator">Utilizator neidentificat, va rugam reincercati!</div>
                         </div> 
                         <div class="input-group mb-1">
                             <div class="input-group-prepend">
                             <span class="bg-primary text-white input-group-text">Parola</span>
                             </div>
-                            <input type="password" aria-label="Parola" class="form-control text-center" name="parola">
+                            <input type="password" aria-label="Parola" class="form-control text-center" name="parola" id="parola">
                         </div>
-                        <?php echo $eroareUsername; ?>
-                        <?php echo $eroareParola; ?>   
-                        <button class="btn btn-block btn-dark mt-3 font-weight-bold">Logheaza-te in Secretariat</button>
+
+                        <button id="loginUser" class="btn btn-block btn-dark mt-3 font-weight-bold py-4">Logheaza-te in Secretariat</button>
                         </form>
                     </div>
                 </div>

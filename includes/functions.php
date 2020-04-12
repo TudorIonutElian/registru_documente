@@ -43,8 +43,8 @@ function loginUser($username, $parola){
     $result = mysqli_query($conexiune, $sql);
     $user_identificat = mysqli_fetch_assoc(mysqli_query($conexiune, $sql));
 
-    if($user_identificat == 0){
-        header("Location: index.php?eroareUsername=false");
+    if($user_identificat === 0){
+        echo "UserEroare";
     }else{
         if($username === $user_identificat['user'] && $parola === $user_identificat['parola']){
             //Setare sesiuni cu privire la logare, user si rol
@@ -54,19 +54,19 @@ function loginUser($username, $parola){
             
             if($user_identificat['rol'] == "1"){
                 $_SESSION['isAdmin'] = true;
-                header("Location: ../admin.php");
+                echo "A";
             }
             if($user_identificat['rol'] == "2"){
-                header("Location: ../secretariat-director.php");
+                echo "SD";
             }
             if($user_identificat['rol'] == "3" || $user_identificat['rol'] == "4" || $user_identificat['rol'] == "5" || $user_identificat['rol'] == "6" || $user_identificat['rol'] == "7"){
-                header("Location: ../secretariat-serviciu.php");
+                echo "SS";
             }
             if($user_identificat['rol'] == "8"){
-                header("Location: ../secretariat-lucrator.php");
+                echo "SL";
             }
         }elseif($parola !== $user_identificat['parola']){
-            header("Location: ./index.php?eroareParola=true");
+            echo "Parola incorecta!";
         }       
     }
 }
@@ -123,8 +123,10 @@ function showLogoutButton(){
         if($numar_documente > 0){
             $classAlocare = "alocare-warning";
         }
+        $alocare_link = "";
 
         echo '
+    
             <li class="nav-item active">
                 <a class="nav-link ' .$classAlocare . '" href="alocare.php">Alocare (' .$numar_documente. ')</a>
             </li>
@@ -149,9 +151,19 @@ function showLogoutButton(){
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                     <a class="dropdown-item" href="realocare.php"><img class="p-2" src="./design/img/sesizari.png">Realocare numar</a>
-                    <a class="dropdown-item" href="#"><img class="p-2" src="./design/img/sesizari.png">Schimba lucrator</a>
+                    <a id="schimba_lucrator" class="dropdown-item" href="#"><img class="p-2" src="./design/img/sesizari.png">Schimba lucrator</a>
                     <a class="dropdown-item" href="#"><img class="p-2" src="./design/img/sesizari.png">Schimba destinatar</a>
                     <a class="dropdown-item" href="#"><img class="p-2" src="./design/img/sesizari.png">Adauga emitent</a>
+                </div>
+            </li>
+             <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Nomenclator
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <a class="dropdown-item" href="realocare.php"><img class="p-2" src="./design/img/sesizari.png">Adauga Emitent</a>
+                    <a class="dropdown-item" href="#"><img class="p-2" src="./design/img/sesizari.png">Adauga Lucrator</a>
+                    <a class="dropdown-item" href="#"><img class="p-2" src="./design/img/sesizari.png">Adauga Destinatar</a>
                 </div>
             </li>
             <li class="nav-item"><a class="btn btn-outline-info mx-2" href="registru.php" target="_blank">Printeaza Registru</a></li>

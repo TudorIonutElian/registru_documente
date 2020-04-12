@@ -80,9 +80,19 @@ class Functions{
         $database = new Database();
         $conexiune = $database->conectare();
 
-        $sqlGetEmitent = "SELECT denumire_emitent FROM rd_emitent WHERE cod_emitent = $codEmitent";
+        $sqlGetEmitent = "SELECT denumire_emitent FROM rd_emitent WHERE cod_emitent = '$codEmitent'";
         if($result = mysqli_fetch_assoc(mysqli_query($conexiune, $sqlGetEmitent))){
             return $result['denumire_emitent'];
+        }
+    }
+
+    public static function getEmitentFull($codEmitent){
+        $database = new Database();
+        $conexiune = $database->conectare();
+
+        $sqlGetEmitent = "SELECT denumire_emitent_long FROM rd_emitent WHERE cod_emitent = '$codEmitent'";
+        if($result = mysqli_fetch_assoc(mysqli_query($conexiune, $sqlGetEmitent))){
+            return $result['denumire_emitent_long'];
         }
     }
 

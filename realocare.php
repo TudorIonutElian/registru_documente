@@ -1,9 +1,8 @@
-<?php require './includes/header.php' ;?>
-<?php require './includes/navbar.php' ;?>
+<?php require './includes/header.php';?>
+<?php require './includes/navbar.php';?>
 <?php require './includes/classes/CautaDocument.php';?>
 <?php require './includes/classes/Realocare.php';?>
-
-<?php  
+<?php
     if(isset($_SESSION['rol'])){
         $registru = Functions::getRegistru($_SESSION['rol']);
     }
@@ -62,6 +61,11 @@
         -->
         <div class="container-fluid mt-2">
             <div class="row">
+                <div class="col-2">
+                    <a href="documente.php" class="btn btn-dark">Inapoi la documente</a>
+                </div>
+            </div>
+            <div class="row">
                 <div class="col-9 m-auto py-2">
                 <table class="table">
                         <thead class="bg-theme">
@@ -82,7 +86,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <?php Realocare::identificareRealocare(); ?>
+                            <?php Realocare::identificareRealocare($registru); ?>
                         </tbody>
                     </table>
                 </div>

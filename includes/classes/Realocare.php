@@ -3,13 +3,13 @@
     // Clasa pentru realocare numere care au fost sterse
     class Realocare{
 
-            public static function identificareRealocare(){
+            public static function identificareRealocare($registru){
             // Creare o noua conexiune la baza de date
             $baza = new Database();
             // Conectare la baza de date
             $conexiune = $baza->conectare();
 
-            $sql = "SELECT id, numar_curent_corespondenta, data_intrarii FROM rd_sgp WHERE cod_emitent = 0 ORDER BY numar_curent_corespondenta";
+            $sql = "SELECT id, numar_curent_corespondenta, data_intrarii FROM $registru WHERE cod_emitent = 0 ORDER BY numar_curent_corespondenta";
             if($result = mysqli_query($conexiune, $sql)){
                 if(mysqli_num_rows($result) > 0){
                     $i = 1;

@@ -52,11 +52,11 @@ class Numar{
             }
         }
     }
-    public static function iesireNumar($id, $data, $rezolvare, $destinatar, $registru){
+    public static function iesireNumar($id, $data, $rezolvare, $destinatari_text, $registru){
         $database = new Database();
         $conexiune = $database->conectare();
 
-        $sql= "UPDATE $registru SET data_iesirii = '$data', rezolvare = '$rezolvare', transmis_catre = '$destinatar' WHERE id = '$id'";
+        $sql= "UPDATE $registru SET data_iesirii = '$data', rezolvare = '$rezolvare', destinatari = '$destinatari_text' WHERE id = '$id'";
         $result = mysqli_query($conexiune, $sql);
 
         if($result){

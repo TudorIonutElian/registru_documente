@@ -70,34 +70,6 @@ class PrintareRegistru{
                     }
                 }
             }
-            /*
-        $continutCelula = $data;
-        $listaCuvinteCelula = explode(" ", $continutCelula);
-        $numarCuvinteCelula = count($listaCuvinteCelula);
-        $medieCelulaMica = 23 / $numarCuvinteCelula;
-
-        $nextX = 165;
-        $x=$pdf->GetX();
-        $y=$pdf->GetY();
-        $pdf->SetXY($x+$nextX, $y-23);
-
-        if($numarCuvinteCelula == 1){
-            $pdf->MultiCell(0, 23, $continutCelula, 1, 'C');
-        }else{
-            $pdf->MultiCell(0, $medieCelulaMica, $listaCuvinteCelula[0], 'L T R', 'C');
-
-            for($i = 1; $i < $numarCuvinteCelula; $i++){
-                $x=$pdf->GetX();
-                $y=$pdf->GetY();
-                $pdf->SetXY($x+165, $y);
-
-                if($i == ($numarCuvinteCelula-1)){
-                    $pdf->MultiCell(0, $medieCelulaMica, $listaCuvinteCelula[$i], 'L, R, B', 'C');
-                }else{
-                    $pdf->MultiCell(0, $medieCelulaMica, $listaCuvinteCelula[$i], 'L R', 'C');
-                }
-            }  
-        }*/
     }
 
     // Functie pentru desenarea unui rand - Functionala
@@ -164,13 +136,57 @@ class PrintareRegistru{
                 }
             }
     }
+    public static function drawCellDestinatariIesire($pdf, $destinatari, $width){
+        $numar_destinatari = 1;
+        // Aflu numarul destinatarilor
+        if(count($destinatari) !== 0){
+            $numar_destinatari = count($destinatari);
+        }
+
+        $medie_celula = 23 / $numar_destinatari;
+        $x=$pdf->GetX();
+        $y=$pdf->GetY();
+        $pdf->SetXY($x+120, $y-23);
+        $pdf->MultiCell($width, 23, '', 'L B R', 'C');
+
+        if(count($destinatari) == 0){
+            $x=$pdf->GetX();
+            $y=$pdf->GetY();
+            $pdf->SetXY($x+120, $y);
+            $pdf->MultiCell($width, 23, '', 1, 'C');
+        }else{
+            for($i = 0; $i <  $numar_destinatari; $i++){
+                $x=$pdf->GetX();
+                $y=$pdf->GetY();
+                $pdf->SetXY($x+120, $y);
+                $pdf->MultiCell($width, $medie_celula, Functions::getEmitent($destinatari[$i]), 1, 'C');
+            }
+        }
+    }
+
 
     // Afisare numere pe pagina de IESIRE
     public static function drawRowIesire($pdf, $data){
         $luna_curenta       = substr($data['data_iesirii'], 5, 2);
         $ziua_curenta       = substr($data['data_iesirii'], 8, 2);
         $rezolvare          = $data['rezolvare'];
-        $destinatar         = Functions::getEmitent($data['transmis_catre']);
+
+        // preluare string destinatar din baza de date
+        $destinatari         = $data['destinatari'];
+        // aici obtin 1 2 2
+        $destinatari_lista = explode("-", $destinatari);
+
+        $destinatari_lista = explode("-", $destinatari); //[0][0][0]
+        $destinatari_coduri = [];
+
+        // Crere destinatari coduri doar daca sunt mai mari decat 0
+        foreach ($destinatari_lista as $destinatar){
+            if($destinatar !== '0'){
+                array_push($destinatari_coduri, (int)$destinatar);
+            }
+        }
+
+        /* --------------- aici am de editat pentru a afisa destinatarii*/
         // Printare linia de iesire
         $x=$pdf->GetX();
         $y=$pdf->GetY();
@@ -190,7 +206,8 @@ class PrintareRegistru{
         $x=$pdf->GetX();
         $y=$pdf->GetY();
         $pdf->SetXY($x+120, $y-23);
-        $pdf->MultiCell(40, 23, $destinatar, 1, 'C');
+        self::drawCellDestinatariIesire($pdf, $destinatari_coduri, 40);
+        //$pdf->MultiCell(40, 23, 'destinatari', 1, 'C');
 
         $x=$pdf->GetX();
         $y=$pdf->GetY();
@@ -225,7 +242,7 @@ class PrintareRegistru{
                     $nume_lucrator      = Functions::getLucratorNume($documente['cod_lucrator']);
                     
                     $lucrator           = Functions::getLucratorNume($documente['cod_lucrator']);
-                    $transmis_catre     = Functions::getEmitent($documente['transmis_catre']);
+                    $transmis_catre     = Functions::getEmitent($documente['destinatari']);
 
                     $numar = [
                         'numar_curent_corespondenta' => $numar_curent,

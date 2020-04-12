@@ -1,6 +1,6 @@
-<?php require './includes/header.php' ;?>
-<?php require './includes/navbar.php' ;?>
-<?php require './includes/classes/SecretarServiciu.php' ;?>
+<?php require './includes/header.php';?>
+<?php require './includes/navbar.php';?>
+<?php require './includes/classes/SecretarServiciu.php';?>
 <?php require './includes/classes/Emitent.php';?>
 <?php require './includes/classes/Lucrator.php';?>
 <?php require './includes/classes/Url.php';?>
@@ -15,15 +15,20 @@
     $id_document        = Numar::verificareId();
     
 
-    if(isset($_POST['rezolvare']) && isset($_POST['destinatar'])){  
-        $rezolvare      = $_POST['rezolvare'];
-        $destinatar     = (int)$_POST['destinatar'];
+    if(isset($_POST['rezolvare']) && isset($_POST['destinatar_1'])){
+        $rezolvare              = $_POST['rezolvare'];
+        $destinatar_1           = $_POST['destinatar_1'];
+        $destinatar_2           = $_POST['destinatar_2'];
+        $destinatar_3           = $_POST['destinatar_3'];
+        $destinatari_lista      = [$destinatar_1, $destinatar_2, $destinatar_3];
+        $destinatari_text       = implode("-", $destinatari_lista);
+
         $data           = $_POST['data-iesirii'];
-        Numar::iesireNumar($id_document, $data, $rezolvare, $destinatar, $registru);
+        Numar::iesireNumar($id_document, $data, $rezolvare, $destinatari_text, $registru);
     }else{
         echo 
         "
-        <div class=\"container\">Invalid</div>
+            <div class=\"container\">Invalid</div>
         ";
     }
 
@@ -78,7 +83,13 @@
                     <div class="row py-2">
                         <div class="col-6">Documentul a fost transmis catre: </div>
                         <div class="col-6">
-                            <select name="destinatar" class="form-control" id="codEmitent">
+                            <select name="destinatar_1" class="form-control" id="codEmitent">
+                                <?php getAllEmitent();?>
+                            </select>
+                            <select name="destinatar_2" class="form-control" id="codEmitent">
+                                <?php getAllEmitent();?>
+                            </select>
+                            <select name="destinatar_3" class="form-control" id="codEmitent">
                                 <?php getAllEmitent();?>
                             </select>
                         </div>

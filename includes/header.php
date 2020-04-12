@@ -6,5 +6,6 @@
     <title>Registru Documente</title>
     <link rel='stylesheet' href='design/bootstrap.css'>
     <link rel='stylesheet' href='design/style.css'>
+    <link rel="icon" type="image/png" href="design/img/favicon.ico" />
 </head>
 <body id='body'>

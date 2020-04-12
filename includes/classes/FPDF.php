@@ -441,9 +441,10 @@ function Header()
 		$this->Cell(0,10,'MINISTERUL AFACERILOR INTERNE',0,1,'C');
 		$this->Cell(0,10,'Inspectoratul General al Politiei de Frontiera',0,1,'C');
 		$this->Cell(0,10,'Directia Resurse Umane',0,1,'C');
+		$this->Cell(0,10,'Directia Resurse Umane',0,1,'C');
 		$x=$this->GetX();
 		$y=$this->GetY();
-		$this->SetXY($x, $y+80);
+		$this->SetXY($x, $y+70);
 		$this->Cell(0,10,'REGISTRU DOCUMENTE',0,1,'C');
 		$this->Cell(0,10, 'NECLASIFICATE',0,1,'C');
 		$x=$this->GetX();

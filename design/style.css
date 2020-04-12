@@ -529,3 +529,129 @@ tbody tr:hover{
 .bg-outline-info{
     border: 2px solid #3498db;
 }
+
+#countContinut,
+#countContinutExit{
+    display: none;
+    width: 100%;
+}
+
+
+
+modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe;
+    padding: 20px;
+    border: 1px solid #0f6674;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+
+/* The Close Button */
+.close {
+    color: red;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Modal Header */
+.modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+/* Modal Body */
+.modal-body {padding: 2px 16px;}
+
+/* Modal Footer */
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+
+/* Add Animation */
+@keyframes animatetop {
+    from {top: -200px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+.modal-container form{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+/* Versiune noua de aplicatie bazata pe javascript*/
+#erori_inregistrare{
+    border-radius: 5px;
+}
+
+#ss-modal{
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(11, 46, 19, .8);
+    margin: 0;
+    padding: 0;
+    top: 0;
+    left: 0;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+#form-alocare-info{
+    width: 40%;
+    min-height: 55%;
+    background-color: #fff;
+    border-radius: 4px;
+    position: relative;
+    padding: 25px;
+    margin-top: 30px;
+}
+#form-alocare-info button#btn-close {
+     position: absolute;
+     top: 10px;
+     right: 10px;
+ }
+.row-alocare div:nth-child(1) {
+    border-left: 5px solid #0f6674;
+}
+
+select#cod_emitent option{
+    text-align: center;
+}
+#eroareUtilizator{
+    display: none;
+}
+
+.row-hide{
+    display: none;
+}

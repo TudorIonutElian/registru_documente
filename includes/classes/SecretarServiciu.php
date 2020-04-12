@@ -9,29 +9,28 @@ class SecretarServiciu{
         return $data;
     }
 
-    public static function inregistrareDocument($rol, $numar_curent, $data_curenta, $numar_intrare, $cod_emitent, $continut, $iesire, $rezolvare, $iesire_trans, $clasare, $lucrator){
-
-        // COnectare la baza de date
-        $database = new Database();
-        $conexiune = $database->conectare();
-        
+    public static function inregistrareDocument($rol, $numar_curent, $data_curenta, $numar_intrare, $cod_emitent, $continut, $data_iesirii, $rezolvare, $destinatari_full, $clasare, $cod_lucrator){
+        // Conectare la baza de date
+            $database = new Database();
+            $conexiune = $database->conectare();
         //Identificare rol secretar
-        $registru = Functions::getRegistru($rol);
-
+            $registru = Functions::getRegistru($rol);
         //Generare id unic pentru fiecare document
-        $id_document = Id::generareID(15);
-        $sqlServiciu = "";
-        if($iesire == ""){
-            $sqlServiciu = "INSERT INTO " . $registru . " (id, numar_curent_corespondenta, data_intrarii, numar_corespondenta_intrata, cod_emitent, continut_corespondenta, rezolvare, transmis_catre, clasare, cod_lucrator) 
-                                                VALUES ('$id_document', '$numar_curent', '$data_curenta', '$numar_intrare', '$cod_emitent', '$continut', '$rezolvare', '$iesire_trans', '$clasare', '$lucrator')";
-        }else{
-            $sqlServiciu = "INSERT INTO " . $registru . " (id, numar_curent_corespondenta, data_intrarii, numar_corespondenta_intrata, cod_emitent, continut_corespondenta, data_iesirii, rezolvare, transmis_catre, clasare, cod_lucrator) 
-                                                VALUES ('$id_document', '$numar_curent', '$data_curenta', '$numar_intrare', '$cod_emitent', '$continut', '$iesire', '$rezolvare', '$iesire_trans', '$clasare', '$lucrator')";
-        }
-        
-        
+            $id_document = Id::generareID(15);
+        //Real escape strings
+            $continut = $conexiune->real_escape_string($continut);
+            $rezolvare = $conexiune->real_escape_string($rezolvare);
+            $sqlServiciu = "";
+            if($data_iesirii == ""){
+                $sqlServiciu = "INSERT INTO " . $registru . " (id, numar_curent_corespondenta, data_intrarii, numar_corespondenta_intrata, cod_emitent, continut_corespondenta, rezolvare, destinatari, clasare, cod_lucrator) 
+                                                    VALUES ('$id_document', '$numar_curent', '$data_curenta', '$numar_intrare', '$cod_emitent', '$continut', '$rezolvare', '$destinatari_full', '$clasare', '$cod_lucrator')";
+            }else{
+                $sqlServiciu = "INSERT INTO " . $registru . " (id, numar_curent_corespondenta, data_intrarii, numar_corespondenta_intrata, cod_emitent, continut_corespondenta, data_iesirii, rezolvare, destinatari, clasare, cod_lucrator) 
+                                                    VALUES ('$id_document', '$numar_curent', '$data_curenta', '$numar_intrare', '$cod_emitent', '$continut', '$data_iesirii', '$rezolvare', '$destinatari_full', '$clasare', '$cod_lucrator')";
+            }
+
         if(mysqli_query($conexiune, $sqlServiciu)){
-            header("Location: ../secretariat-serviciu.php?inregistrare=true");
+            return 200;
         }else{
             die("Eroare: ". mysqli_error($conexiune));
         };
@@ -42,7 +41,7 @@ class SecretarServiciu{
         $conexiune = $database->conectare();
 
     
-        $sql= "SELECT * FROM rd_lucratori WHERE cod_serviciu = $rol";
+        $sql= "SELECT * FROM rd_lucratori WHERE cod_serviciu = '$rol' ORDER BY lucrator";
         $result = mysqli_query($conexiune, $sql);
     
     

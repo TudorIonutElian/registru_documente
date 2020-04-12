@@ -40,7 +40,7 @@ class Alocare{
                     <td scope=\"col\">" . $document['numar_corespondenta_intrata'] . "</td>
                     <td scope=\"col\"> " . $emitent . "</td>
                     <td scope=\"col\">" . $document['continut_corespondenta']. "</td>
-                    <td scope=\"col\"><a class=\"btn btn-outline-dark\" href=\"./repartizare.php?id=$id\">Repartizeaza</a></td>
+                    <td scope=\"col\"><btn class=\"btn btn-outline-dark\" onclick=\"repartizeazaNumarInregistrat('$id');\">Repartizeaza</btn></td>
                 </tr>";
             }
         }else{

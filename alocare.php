@@ -49,6 +49,53 @@
         </div>
 
         </div>
+    <div id="ss-modal">
+        <div id="form-alocare-info">
+            <button id="btn-close" onclick="hideParent(this.parentNode.parentNode);" class="btn btn-sm btn-outline-danger">Close</button>
+            <div class="container p-4">
+                <div class="row">
+                    <div class="col-12 bg-info py-3 text-white text-center my-2 mt-3 text-uppercase">Repartizare numar inregistrat</div>
+                </div>
+                <div class="row row-alocare mb-2 row-hide">
+                    <div class="col-5 py-3 text-right">ID Document (preluat din registru)</div>
+                    <div id="m-id_document" class="col-7 py-3 text-center"></div>
+                </div>
+                <div class="row row-alocare mb-2">
+                    <div class="col-5 py-3 text-right">Numarul curent al corespondentei</div>
+                    <div id="m-numar_curent_corespondenta" class="col-7 py-3 text-center"></div>
+                </div>
+                <div class="row row-alocare mb-2">
+                    <div class="col-5 py-3 text-right">Data intrarii corespondentei (documentului)</div>
+                    <div id="m-data_intrarii" class="col-7 py-3 text-center"></div>
+                </div>
+                <div class="row row-alocare mb-2">
+                    <div class="col-5 py-3 text-right">Numarul corespondentei intrate</div>
+                    <div id="m-numar_corespondenta_intrata"class="col-7 py-3 text-center"></div>
+                </div>
+                <div class="row row-alocare mb-2">
+                    <div class="col-5 py-3 text-right">De la cine provine corespondenta</div>
+                    <div id="m-cod_emitent" class="col-7 py-3 text-center">
+
+                    </div>
+                </div>
+                <div class="row row-alocare mb-2">
+                    <div class="col-5 py-3 text-right">C O N T I N U T U L</div>
+                    <div id="m-continut_corespondenta"class="col-7 py-3 text-center">
+
+                    </div>
+                </div>
+                <div class="row row-alocare mb-2">
+                    <div class="col-5 py-3 text-right">Alocare Lucrator</div>
+                    <div class="col-7 py-3 text-center">
+                        <select name="serviciu-intrare-cod-emitent" class="form-control" id="r-cod_lucrator">
+                        </select>
+                        <input type="text" id="r-input-hidden" hidden>
+                    </div>
+                </div>
+                <button id="btn-repartizare-document" class="btn btn-block btn-outline-dark">Repartizeaza Documentul Inregistrat</button>
+            </div>
+        </div>
+    </div>
     <?php else : ?>
 
         <div class="container-fluid">
